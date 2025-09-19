@@ -1,1 +1,0 @@
-console.log('App v3 loaded');
