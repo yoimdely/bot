@@ -9,6 +9,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="app">
@@ -35,63 +36,61 @@
 
     <main class="view">
       <section id="tab-home" class="panel active">
-        <div class="grid two">
-          <div class="card large">
-            <h2>➕ Новая запись</h2>
-            <form id="eventForm" class="form">
-              <div class="row two">
-                <label>Когда
-                  <input type="datetime-local" id="dt" required>
-                </label>
-                <label>Категория
-                  <select id="category">
-                    <option value="sex">Секс</option>
-                    <option value="masturbation">Мастурбация</option>
-                    <option value="date">Свидание</option>
-                    <option value="foreplay">Прелюдия</option>
-                    <option value="other">Другое</option>
-                  </select>
-                </label>
-              </div>
-              <div class="row two">
-                <label>Партнёр/ша
-                  <input type="text" id="partner" placeholder="имя/метка (опц.)">
-                </label>
-                <label>Настроение
-                  <select id="mood">
-                    <option value="👌 нормально">👌 нормально</option>
-                    <option value="🔥 супер">🔥 супер</option>
-                    <option value="😴 устал(а)">😴 устал(а)</option>
-                    <option value="😕 стресс">😕 стресс</option>
-                  </select>
-                </label>
-              </div>
-              <div class="row chips">
-                <label class="check"><input type="checkbox" id="protected"> Защита</label>
-                <label class="check"><input type="checkbox" id="orgasm"> Оргазм</label>
-              </div>
+        <div class="card">
+          <h2>➕ Новая запись</h2>
+          <form id="eventForm" class="form">
+            <div class="row two field-card">
+              <label>Когда
+                <input type="datetime-local" id="dt" required>
+              </label>
+              <label>Категория
+                <select id="category">
+                  <option value="sex">Секс</option>
+                  <option value="masturbation">Мастурбация</option>
+                  <option value="date">Свидание</option>
+                  <option value="foreplay">Прелюдия</option>
+                  <option value="other">Другое</option>
+                </select>
+              </label>
+            </div>
+            <div class="row two field-card">
+              <label>Партнёр/ша
+                <input type="text" id="partner" placeholder="имя/метка (опц.)">
+              </label>
+              <label>Настроение
+                <select id="mood">
+                  <option value="👌 нормально">👌 нормально</option>
+                  <option value="🔥 супер">🔥 супер</option>
+                  <option value="😴 устал(а)">😴 устал(а)</option>
+                  <option value="😕 стресс">😕 стресс</option>
+                </select>
+              </label>
+            </div>
+            <div class="row field-card checks">
+              <label class="check"><input type="checkbox" id="protected"> Защита</label>
+              <label class="check"><input type="checkbox" id="orgasm"> Оргазм</label>
+            </div>
+            <div class="field-card">
               <label>Заметка
                 <textarea id="note" rows="2" placeholder="самочувствие, контекст..."></textarea>
               </label>
-              <div class="row end gap">
-                <button type="button" id="clearAll" class="btn light">Очистить</button>
-                <button type="submit" class="btn primary">Сохранить</button>
-              </div>
-            </form>
-          </div>
-
-          <div class="stack">
-            <div class="card kpis">
-              <div class="kpi"><div class="num" id="kpi-total">0</div><div class="lbl">за 7 дней</div></div>
-              <div class="kpi"><div class="num" id="kpi-prot">0%</div><div class="lbl">защита</div></div>
-              <div class="kpi"><div class="num" id="kpi-org">0%</div><div class="lbl">оргазм</div></div>
             </div>
-
-            <div class="card">
-              <h3>💡 Факт дня</h3>
-              <p id="factBox" class="muted"></p>
+            <div class="row end gap">
+              <button type="button" id="clearAll" class="btn light">Очистить</button>
+              <button type="submit" class="btn primary">Сохранить</button>
             </div>
-          </div>
+          </form>
+        </div>
+
+        <div class="card kpis">
+          <div class="kpi"><div class="num" id="kpi-total">0</div><div class="lbl">за 7 дней</div></div>
+          <div class="kpi"><div class="num" id="kpi-prot">0%</div><div class="lbl">защита</div></div>
+          <div class="kpi"><div class="num" id="kpi-org">0%</div><div class="lbl">оргазм</div></div>
+        </div>
+
+        <div class="card">
+          <h3>💡 Факт дня</h3>
+          <p id="factBox" class="muted"></p>
         </div>
       </section>
 
@@ -123,19 +122,7 @@
       <button data-tab="history" class="btab"><div>📜</div><span>История</span></button>
       <button data-tab="about" class="btab"><div>ℹ️</div><span>О нас</span></button>
     </nav>
-
-    <dialog id="pinModal" class="modal">
-      <form method="dialog" class="modal-body card">
-        <h3>🔒 Введите PIN</h3>
-        <input id="pinInput" type="password" maxlength="6" class="pin-input">
-        <div class="row end gap">
-          <button id="pinSet" class="btn light">Установить</button>
-          <button id="pinCheck" class="btn primary">Войти</button>
-        </div>
-      </form>
-    </dialog>
   </div>
-
   <script type="module" src="/app.js"></script>
 </body>
 </html>

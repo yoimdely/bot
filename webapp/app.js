@@ -9,4 +9,4 @@ function switchTab(name){
 }
 tabs.forEach(t=>t.addEventListener('click',()=>switchTab(t.dataset.tab)));
 btabs.forEach(t=>t.addEventListener('click',()=>switchTab(t.dataset.tab)));
-console.log("v4.2 app ready");
+console.log("v4.3 app ready");

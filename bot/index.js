@@ -1,1 +1,1 @@
-// same as v4 bot code
+// bot code placeholder
