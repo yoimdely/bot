@@ -40,24 +40,24 @@
           <h2>➕ Новая запись</h2>
           <form id="eventForm" class="form">
             <div class="row two field-card">
-              <label>Когда
+              <label>⏰ Когда
                 <input type="datetime-local" id="dt" required>
               </label>
-              <label>Категория
+              <label>📂 Категория
                 <select id="category">
-                  <option value="sex">Секс</option>
-                  <option value="masturbation">Мастурбация</option>
-                  <option value="date">Свидание</option>
-                  <option value="foreplay">Прелюдия</option>
-                  <option value="other">Другое</option>
+                  <option value="sex">❤️ Секс</option>
+                  <option value="masturbation">✋ Мастурбация</option>
+                  <option value="date">🌹 Свидание</option>
+                  <option value="foreplay">🔥 Прелюдия</option>
+                  <option value="other">✨ Другое</option>
                 </select>
               </label>
             </div>
             <div class="row two field-card">
-              <label>Партнёр/ша
+              <label>🧑‍🤝‍🧑 Партнёр/ша
                 <input type="text" id="partner" placeholder="имя/метка (опц.)">
               </label>
-              <label>Настроение
+              <label>🙂 Настроение
                 <select id="mood">
                   <option value="👌 нормально">👌 нормально</option>
                   <option value="🔥 супер">🔥 супер</option>
@@ -71,7 +71,7 @@
               <label class="check"><input type="checkbox" id="orgasm"> Оргазм</label>
             </div>
             <div class="field-card">
-              <label>Заметка
+              <label>📝 Заметка
                 <textarea id="note" rows="2" placeholder="самочувствие, контекст..."></textarea>
               </label>
             </div>
@@ -82,34 +82,34 @@
           </form>
         </div>
 
-        <div class="card kpis">
+        <div class="card kpis animate">
           <div class="kpi"><div class="num" id="kpi-total">0</div><div class="lbl">за 7 дней</div></div>
           <div class="kpi"><div class="num" id="kpi-prot">0%</div><div class="lbl">защита</div></div>
           <div class="kpi"><div class="num" id="kpi-org">0%</div><div class="lbl">оргазм</div></div>
         </div>
 
-        <div class="card">
+        <div class="card animate">
           <h3>💡 Факт дня</h3>
           <p id="factBox" class="muted"></p>
         </div>
       </section>
 
       <section id="tab-stats" class="panel">
-        <div class="card">
+        <div class="card animate">
           <h2>📊 Динамика за 7 дней</h2>
           <canvas id="chart" height="180"></canvas>
         </div>
       </section>
 
       <section id="tab-history" class="panel">
-        <div class="card">
+        <div class="card animate">
           <h2>🗂 История</h2>
           <div id="history" class="timeline"></div>
         </div>
       </section>
 
       <section id="tab-about" class="panel">
-        <div class="card">
+        <div class="card animate">
           <h2>ℹ️ О приложении</h2>
           <p><b>Sex Health</b> — это приватный трекер интимной активности, самочувствия и настроения.</p>
         </div>
@@ -122,6 +122,8 @@
       <button data-tab="history" class="btab"><div>📜</div><span>История</span></button>
       <button data-tab="about" class="btab"><div>ℹ️</div><span>О нас</span></button>
     </nav>
+
+    <div id="toast" class="toast">✅ Запись сохранена</div>
   </div>
   <script type="module" src="/app.js"></script>
 </body>
