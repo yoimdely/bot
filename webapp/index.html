@@ -1,0 +1,178 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sex Health — Mini App</title>
+  <link rel="icon" href="/assets/logo.svg">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <img src="/assets/logo.svg" class="logo" alt="logo" />
+        <div class="titles">
+          <h1>Sex Health</h1>
+          <p>Твой личный трекер здоровья</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="openInfo" class="btn ghost">ℹ️</button>
+        <button id="openPin" class="btn ghost">🔒</button>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+      <button data-tab="home" class="tab active">Главная</button>
+      <button data-tab="stats" class="tab">Статистика</button>
+      <button data-tab="history" class="tab">История</button>
+      <button data-tab="about" class="tab">О приложении</button>
+    </nav>
+
+    <main class="view">
+      <!-- Home -->
+      <section id="tab-home" class="panel active">
+        <div class="grid two">
+          <div class="card large">
+            <h2>➕ Новая запись</h2>
+            <form id="eventForm" class="form">
+              <div class="row two">
+                <label>Когда
+                  <input type="datetime-local" id="dt" required>
+                </label>
+                <label>Категория
+                  <select id="category">
+                    <option value="sex">Секс</option>
+                    <option value="masturbation">Мастурбация</option>
+                    <option value="date">Свидание</option>
+                    <option value="foreplay">Прелюдия</option>
+                    <option value="other">Другое</option>
+                  </select>
+                </label>
+              </div>
+              <div class="row two">
+                <label>Партнёр/ша
+                  <input type="text" id="partner" placeholder="имя/метка (опц.)">
+                </label>
+                <label>Настроение
+                  <select id="mood">
+                    <option value="👌 нормально">👌 нормально</option>
+                    <option value="🔥 супер">🔥 супер</option>
+                    <option value="😴 устал(а)">😴 устал(а)</option>
+                    <option value="😕 стресс">😕 стресс</option>
+                  </select>
+                </label>
+              </div>
+              <div class="row chips">
+                <label class="check"><input type="checkbox" id="protected"> Защита</label>
+                <label class="check"><input type="checkbox" id="orgasm"> Оргазм</label>
+              </div>
+              <label>Заметка
+                <textarea id="note" rows="2" placeholder="самочувствие, контекст..."></textarea>
+              </label>
+              <div class="row end gap">
+                <button type="button" id="clearAll" class="btn light">Очистить</button>
+                <button type="submit" class="btn primary">Сохранить</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="stack">
+            <div class="card kpis">
+              <div class="kpi"><div class="num" id="kpi-total">0</div><div class="lbl">за 7 дней</div></div>
+              <div class="kpi"><div class="num" id="kpi-prot">0%</div><div class="lbl">защита</div></div>
+              <div class="kpi"><div class="num" id="kpi-org">0%</div><div class="lbl">оргазм</div></div>
+            </div>
+
+            <div class="card">
+              <h3>💡 Факт дня</h3>
+              <p id="factBox" class="muted"></p>
+            </div>
+
+            <div class="card">
+              <div class="row between">
+                <h3>Экспорт</h3>
+                <div class="row gap">
+                  <button id="exportCsv" class="btn light">CSV</button>
+                  <button id="exportPdf" class="btn outline">PDF</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section id="tab-stats" class="panel">
+        <div class="card">
+          <div class="row between">
+            <h2>📊 Динамика за 7 дней</h2>
+            <select id="filterCat" class="select">
+              <option value="all">Все</option>
+              <option value="sex">Секс</option>
+              <option value="masturbation">Мастурбация</option>
+              <option value="date">Свидание</option>
+              <option value="foreplay">Прелюдия</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+          <canvas id="chart" height="180"></canvas>
+        </div>
+      </section>
+
+      <!-- History -->
+      <section id="tab-history" class="panel">
+        <div class="card">
+          <h2>🗂 История</h2>
+          <div id="history" class="timeline"></div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="tab-about" class="panel">
+        <div class="card">
+          <h2>ℹ️ О приложении</h2>
+          <p><b>Sex Health</b> — это приватный трекер интимной активности, самочувствия и настроения. Он помогает замечать связи между стрессом, сном, нагрузкой и качеством близости.</p>
+          <ul class="bullets">
+            <li>✅ Приватность — данные только у тебя (локально)</li>
+            <li>✅ Осознанность — простая статистика и понятные метрики</li>
+            <li>✅ Поддержка — короткие советы и факт дня</li>
+          </ul>
+          <p>Наша цель — сделать заботу о сексуальном здоровье такой же естественной, как трекинг сна или спорта.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom nav for mobile -->
+    <nav class="bottom-nav">
+      <button data-tab="home" class="btab active">🏠</button>
+      <button data-tab="stats" class="btab">📊</button>
+      <button data-tab="history" class="btab">📜</button>
+      <button data-tab="about" class="btab">ℹ️</button>
+    </nav>
+
+    <!-- PIN Modal -->
+    <dialog id="pinModal" class="modal">
+      <form method="dialog" class="modal-body card">
+        <h3>🔒 Введите PIN</h3>
+        <input id="pinInput" type="password" maxlength="6" class="pin-input" placeholder="например, 2580">
+        <div class="row end gap">
+          <button id="pinSet" class="btn light">Установить</button>
+          <button id="pinCheck" class="btn primary">Войти</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
