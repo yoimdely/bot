@@ -1,0 +1,17 @@
+{
+  "name": "sex-health-tma",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node bot/index.js",
+    "start": "node bot/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2",
+    "telegraf": "^4.16.3",
+    "compression": "^1.7.4"
+  }
+}

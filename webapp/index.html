@@ -1,0 +1,83 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sex Health — Mini App</title>
+  <link rel="icon" href="/assets/logo.svg">
+  <meta name="theme-color" content="#0f0f10">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <img src="/assets/logo.svg" alt="logo" class="logo" />
+        <div>
+          <h1>Sex Health</h1>
+          <p class="muted">Приватный мониторинг и здоровые привычки</p>
+        </div>
+      </div>
+      <button id="premiumBtn" class="btn primary">⭐ Premium</button>
+    </header>
+
+    <main class="grid">
+      <section class="card span-2">
+        <h2>➕ Новая запись</h2>
+        <form id="eventForm" class="form">
+          <div class="row">
+            <label>Дата и время
+              <input type="datetime-local" id="dt" required />
+            </label>
+            <label>Партнёр/ша
+              <input type="text" id="partner" placeholder="имя/метка (опционально)" />
+            </label>
+          </div>
+          <div class="row">
+            <label>Настроение
+              <select id="mood">
+                <option value="👌 нормально">👌 нормально</option>
+                <option value="🔥 супер">🔥 супер</option>
+                <option value="😴 устал(а)">😴 устал(а)</option>
+                <option value="😕 стресс">😕 стресс</option>
+              </select>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="protected" />
+              Использовалась защита
+            </label>
+          </div>
+          <label>Заметка
+            <textarea id="note" rows="2" placeholder="самочувствие, контекст..."></textarea>
+          </label>
+          <div class="row actions">
+            <button type="submit" class="btn primary">Сохранить</button>
+            <button type="button" id="exportBtn" class="btn">Экспорт CSV</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>📊 Статистика (7 дней)</h2>
+        <div id="kpis" class="kpis"></div>
+        <div id="chart" class="chart"></div>
+      </section>
+
+      <section class="card">
+        <h2>💡 Советы</h2>
+        <ul id="tips" class="tips"></ul>
+      </section>
+
+      <section class="card span-2">
+        <h2>🗂 История</h2>
+        <div id="history" class="history"></div>
+      </section>
+    </main>
+
+    <footer class="muted center">⚕️ Не заменяет консультацию врача</footer>
+  </div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
