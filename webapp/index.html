@@ -8,8 +8,8 @@
   <link rel="icon" href="/assets/logo.svg">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="app">
@@ -35,11 +35,12 @@
     </nav>
 
     <main class="view">
+      <!-- HOME -->
       <section id="tab-home" class="panel active">
         <div class="card">
           <h2>➕ Новая запись</h2>
           <form id="eventForm" class="form">
-            <div class="row two field-card">
+            <div class="grid-2 field-card">
               <label>⏰ Когда
                 <input type="datetime-local" id="dt" required>
               </label>
@@ -53,7 +54,7 @@
                 </select>
               </label>
             </div>
-            <div class="row two field-card">
+            <div class="grid-2 field-card">
               <label>🧑‍🤝‍🧑 Партнёр/ша
                 <input type="text" id="partner" placeholder="имя/метка (опц.)">
               </label>
@@ -66,13 +67,13 @@
                 </select>
               </label>
             </div>
-            <div class="row field-card checks">
+            <div class="field-card checks">
               <label class="check"><input type="checkbox" id="protected"> Защита</label>
               <label class="check"><input type="checkbox" id="orgasm"> Оргазм</label>
             </div>
             <div class="field-card">
               <label>📝 Заметка
-                <textarea id="note" rows="2" placeholder="самочувствие, контекст..."></textarea>
+                <textarea id="note" rows="3" placeholder="самочувствие, контекст..."></textarea>
               </label>
             </div>
             <div class="row end gap">
@@ -94,13 +95,25 @@
         </div>
       </section>
 
+      <!-- STATS -->
       <section id="tab-stats" class="panel">
         <div class="card animate">
-          <h2>📊 Динамика за 7 дней</h2>
-          <canvas id="chart" height="180"></canvas>
+          <div class="row between">
+            <h2>📊 Динамика 7 дней</h2>
+            <select id="filterCat" class="select">
+              <option value="all">Все</option>
+              <option value="sex">Секс</option>
+              <option value="masturbation">Мастурбация</option>
+              <option value="date">Свидание</option>
+              <option value="foreplay">Прелюдия</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+          <canvas id="chart" height="200"></canvas>
         </div>
       </section>
 
+      <!-- HISTORY -->
       <section id="tab-history" class="panel">
         <div class="card animate">
           <h2>🗂 История</h2>
@@ -108,10 +121,17 @@
         </div>
       </section>
 
+      <!-- ABOUT -->
       <section id="tab-about" class="panel">
         <div class="card animate">
           <h2>ℹ️ О приложении</h2>
-          <p><b>Sex Health</b> — это приватный трекер интимной активности, самочувствия и настроения.</p>
+          <p><b>Sex Health</b> — приватный трекер интимной активности, настроения и самочувствия.
+          Он помогает замечать связи между стрессом, сном, нагрузками и качеством близости. Цель — осознанность и забота о себе.</p>
+          <ul class="bullets">
+            <li>✅ Приватность — данные локально у тебя</li>
+            <li>✅ Понятная статистика — только важные метрики</li>
+            <li>✅ Мотивирующие советы и «факт дня»</li>
+          </ul>
         </div>
       </section>
     </main>
@@ -123,8 +143,28 @@
       <button data-tab="about" class="btab"><div>ℹ️</div><span>О нас</span></button>
     </nav>
 
+    <dialog id="pinModal" class="modal">
+      <form method="dialog" class="modal-body card">
+        <h3>🔒 Введите PIN</h3>
+        <input id="pinInput" type="password" maxlength="6" class="pin-input" placeholder="например, 2580">
+        <div class="row end gap">
+          <button id="pinSet" class="btn light">Установить</button>
+          <button id="pinCheck" class="btn primary">Войти</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="infoModal" class="modal">
+      <div class="modal-body card">
+        <h2>ℹ️ О приложении</h2>
+        <p>Это твой личный дневник и аналитика. Пиши, отмечай, анализируй — и делай выводы для здоровья и удовольствия.</p>
+        <button id="closeInfo" class="btn primary">Понятно</button>
+      </div>
+    </dialog>
+
     <div id="toast" class="toast">✅ Запись сохранена</div>
   </div>
+
   <script type="module" src="/app.js"></script>
 </body>
 </html>
